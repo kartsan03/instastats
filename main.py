@@ -1,5 +1,6 @@
-import shutil
-import psutil
+import shutil, psutil, sys
+from global_stats import show_global_stats 
+from disk_stats import show_disk_stats
 
 def printer_banner():
     banner = r"""    
@@ -30,19 +31,16 @@ for i, device in enumerate(list_of_system_disks, start=1):
 
 try:
     user_choice = int(input("Enter your choice: "))
-    if 0 <= user_choice <= (len(list_of_system_disks)) :
-        if user_choice == 0:
-            print("PLACEHOLDER TO FUTURE THINGY")
-        if user_choice > 0:
-            disk_index = user_choice - 1
-            print(f"PLACEHOLDER TO FUTURE THINGY {list_of_system_disks[disk_index]} END OF THINGY")
-    else:
-        print("Please enter number from list above. Exiting program.")
-
 
 except ValueError:
     print("Invalid input. Please enter a number. Exiting program.")
-# total, used, free = shutil.disk_usage('/')
-# print(f'Total: {total / (2**30)} GiB')
-# print(f'Used: {used / (2**30)} GiB')
-# print(f'Free: {free / (2**30)} GiB')
+    sys.exit()
+
+if 0 <= user_choice <= (len(list_of_system_disks)) :
+        if user_choice == 0:
+            show_global_stats(list_of_system_disks)
+        if user_choice > 0:
+            disk_index = user_choice - 1
+            print(f"PLACEHOLDER TO FUTURE THINGY {list_of_system_disks[disk_index]} END OF THINGY")
+else:
+        print("Please enter number from list above. Exiting program.")
