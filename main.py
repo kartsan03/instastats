@@ -1,6 +1,5 @@
-import shutil, psutil, sys
+import psutil, sys
 from global_stats import show_global_stats 
-from disk_stats import show_disk_stats
 
 def printer_banner():
     banner = r"""    
@@ -15,11 +14,8 @@ printer_banner()
 print("Welcome to instastats")
 print("You can easily monitor your system with this tool")
 
-
 all_disks = psutil.disk_partitions()
-total, used, free = shutil.disk_usage('/')
 list_of_system_disks = []
-
 for disk in all_disks:
     list_of_system_disks.append(disk.device)
 
@@ -31,7 +27,7 @@ for i, device in enumerate(list_of_system_disks, start=1):
 
 try:
     user_choice = int(input("Enter your choice: "))
-
+    
 except ValueError:
     print("Invalid input. Please enter a number. Exiting program.")
     sys.exit()
@@ -41,6 +37,6 @@ if 0 <= user_choice <= (len(list_of_system_disks)) :
             show_global_stats(list_of_system_disks)
         if user_choice > 0:
             disk_index = user_choice - 1
-            print(f"PLACEHOLDER TO FUTURE THINGY {list_of_system_disks[disk_index]} END OF THINGY")
+            show_global_stats(list_of_system_disks[disk_index])
 else:
         print("Please enter number from list above. Exiting program.")
